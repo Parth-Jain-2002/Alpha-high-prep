@@ -1,4 +1,9 @@
 import { Autocomplete, TextField } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useEffect, useState } from 'react'
 
 function Search() {
@@ -8,6 +13,7 @@ function Search() {
   const [company, setCompany] = useState([]);
   const [quarter, setQuarter] = useState([]);
   const [specificData, setSpecificData] = useState([]);
+  const [basicInfo, setBasicInfo] = useState([]);
   const [curYear, setCurYear] = useState();
   const [curCompany, setCurCompany] = useState();
   const [curQuarter, setCurQuarter] = useState();
@@ -75,7 +81,7 @@ function Search() {
   }
   function getDataFromServer(e) {
     e.preventDefault();
-    const url = 'http://localhost:3000/getAdditionalCompanyInfo';
+    let url = 'http://localhost:3000/getAdditionalCompanyInfo';
     console.log(compantAndCIK)
     let request_object = {
       "year": curYear,
@@ -83,8 +89,45 @@ function Search() {
       "quarter": curQuarter
     }
     console.log(request_object)
-    const Data = JSON.stringify(request_object);
-    const requestOptions = {
+    let Data = JSON.stringify(request_object);
+    let requestOptions = {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: Data
+    };
+    fetch(url, requestOptions).then(
+      (response) => {
+        response.json().then(
+          (data) => {
+            data = data['data']
+            let data_arr = []
+            for (var e in data) {
+              data_arr.push([e,data[e]])
+            }
+            setSpecificData(data_arr)
+            // for (let e in data) {
+            //   com.push(data[e])
+            // }
+            // setYear(["2017", "2018", "2019", "2020", "2021"]);
+            // setCurYear("2021");
+            // setQuarter(["Q1", "Q2", "Q3", "Q4"]);
+            // setCurQuarter("Q1");
+            // setCompany(com);
+            // setCurCompany(com[0]);
+          }
+        )
+      }
+    ).catch((error) => {
+      console.log(error)
+    })
+    url = 'http://localhost:3000/getBasicCompanyInfo';
+    console.log(compantAndCIK)
+    request_object = {
+      "company": curCompany,
+    }
+    console.log(request_object)
+    Data = JSON.stringify(request_object);
+    requestOptions = {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: Data
@@ -99,7 +142,7 @@ function Search() {
             for (var e in data) {
               data_arr.push([e,data[e]])
             }
-            setSpecificData(data_arr)
+            setBasicInfo(data_arr)
             // for (let e in data) {
             //   com.push(data[e])
             // }
@@ -194,6 +237,27 @@ function Search() {
         Search
       </button>
 
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Accordion 1</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {
+            basicInfo.map((row, idx) => {
+              return (
+                <Typography key={idx}>
+                  {row[0] + ' : ' + row[1]}
+                </Typography>
+              )
+            }) 
+          }
+        </AccordionDetails>
+      </Accordion>
+
       <table style={{ margin: "50px", 'text-align': 'left' }}>
         <thead>
           <th>FIELD</th>
@@ -202,7 +266,7 @@ function Search() {
         <tbody>
           {
             specificData.map((row, idx) => {
-              console.log(row)
+              // console.log(row)
               return (
                 <tr key={idx}>
                   <td>
