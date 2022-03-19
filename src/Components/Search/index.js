@@ -95,7 +95,11 @@ function Search() {
           (data) => {
             data = data['data']
             console.log(data);
-            setSpecificData(data)
+            let data_arr = []
+            for (var e in data) {
+              data_arr.push([e,data[e]])
+            }
+            setSpecificData(data_arr)
             // for (let e in data) {
             //   com.push(data[e])
             // }
@@ -196,14 +200,21 @@ function Search() {
           <th>VALUE</th>
         </thead>
         <tbody>
-          {Object.entries(specificData).map((row) => {
-            return (
-              <tr>
-                <td>{row[0]}</td>
-                <td>{row[1]}</td>
-              </tr>
-            );
-          })}
+          {
+            specificData.map((row, idx) => {
+              console.log(row)
+              return (
+                <tr key={idx}>
+                  <td>
+                    {row[0]}
+                  </td>
+                  <td>
+                    {row[1]}
+                  </td>
+                </tr>
+              )
+            })
+          }
         </tbody>
       </table>
     </>
