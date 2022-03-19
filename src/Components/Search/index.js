@@ -22,7 +22,6 @@ function Search() {
 
   function fetchData() {
     const url = 'http://localhost:3001/getAllCompanies';
-    // const Data = JSON.stringify(request_object);
     const requestOptions = {
       method: "GET",
       headers: { 'Content-Type': 'application/json' },
@@ -51,35 +50,6 @@ function Search() {
     ).catch((error) => {
       console.log(error)
     })
-    // fetch(`./data.json`, {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json'
-    //   }
-    // })
-      // .then(response => {
-      //   return response.json();
-      // })
-      // .then(data => {
-      //   data = data['0'];
-      //   console.log(data);
-      //   setData(data);
-      //   let year = []
-      //   for (let yr in data) {
-      //     year.push(yr);
-      //   }
-
-      //   let comData = data[year[0]];
-      //   console.log(comData);
-      //   let quarData = comData[com[0]];
-      //   console.log(quarData);
-      //   let quar = [];
-      //   for (let quarter in quarData) {
-      //     quar.push(quarter);
-      //   }
-        
-      //   setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
-      // });
   }
   function getDataFromServer(e) {
     e.preventDefault();
@@ -107,15 +77,6 @@ function Search() {
               data_arr.push([e,data[e]])
             }
             setSpecificData(data_arr)
-            // for (let e in data) {
-            //   com.push(data[e])
-            // }
-            // setYear(["2017", "2018", "2019", "2020", "2021"]);
-            // setCurYear("2021");
-            // setQuarter(["Q1", "Q2", "Q3", "Q4"]);
-            // setCurQuarter("Q1");
-            // setCompany(com);
-            // setCurCompany(com[0]);
           }
         )
       }
@@ -145,50 +106,12 @@ function Search() {
               data_arr.push([e,data[e]])
             }
             setBasicInfo(data_arr)
-            // for (let e in data) {
-            //   com.push(data[e])
-            // }
-            // setYear(["2017", "2018", "2019", "2020", "2021"]);
-            // setCurYear("2021");
-            // setQuarter(["Q1", "Q2", "Q3", "Q4"]);
-            // setCurQuarter("Q1");
-            // setCompany(com);
-            // setCurCompany(com[0]);
           }
         )
       }
     ).catch((error) => {
       console.log(error)
     })
-    // fetch(`./data.json`, {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json'
-    //   }
-    // })
-      // .then(response => {
-      //   return response.json();
-      // })
-      // .then(data => {
-      //   data = data['0'];
-      //   console.log(data);
-      //   setData(data);
-      //   let year = []
-      //   for (let yr in data) {
-      //     year.push(yr);
-      //   }
-
-      //   let comData = data[year[0]];
-      //   console.log(comData);
-      //   let quarData = comData[com[0]];
-      //   console.log(quarData);
-      //   let quar = [];
-      //   for (let quarter in quarData) {
-      //     quar.push(quarter);
-      //   }
-        
-      //   setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
-      // });
   }
 
 
@@ -206,9 +129,7 @@ function Search() {
         options={year}
         sx={{ width: 200, display: 'inline-block' }}
         onChange={(e, value) => {
-          // console.log()
           setCurYear(e.target.innerText);
-          // setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
         }}
         renderInput={(params) => <TextField {...params} label="Year" />}
       />
@@ -219,7 +140,6 @@ function Search() {
         sx={{ width: 200, display: 'inline-block' }}
         onChange={(e, value) => {
           setCurCompany(e.target.innerText);
-          // setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
         }}
         renderInput={(params) => <TextField {...params} label="Company" />}
       />
@@ -231,7 +151,6 @@ function Search() {
         onChange={(e, value) => {
           console.log(value);
           setCurQuarter(e.target.innerText);
-          // setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
         }}
         renderInput={(params) => <TextField {...params} label="Quarter" />}
       />
@@ -271,7 +190,6 @@ function Search() {
         <tbody>
           {
             specificData.map((row, idx) => {
-              // console.log(row)
               return (
                 <tr key={idx}>
                   <td width="40%">
