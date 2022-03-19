@@ -1,10 +1,12 @@
 import { Autocomplete, TextField } from '@mui/material';
+import { Container, Row, Col} from 'react-bootstrap';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useEffect, useState } from 'react'
+import './search.css'
 
 function Search() {
   const [data, setData] = useState([]);
@@ -19,7 +21,7 @@ function Search() {
   const [curQuarter, setCurQuarter] = useState();
 
   function fetchData() {
-    const url = 'http://localhost:3000/getAllCompanies';
+    const url = 'http://localhost:3001/getAllCompanies';
     // const Data = JSON.stringify(request_object);
     const requestOptions = {
       method: "GET",
@@ -81,7 +83,7 @@ function Search() {
   }
   function getDataFromServer(e) {
     e.preventDefault();
-    let url = 'http://localhost:3000/getAdditionalCompanyInfo';
+    let url = 'http://localhost:3001/getAdditionalCompanyInfo';
     console.log(compantAndCIK)
     let request_object = {
       "year": curYear,
@@ -120,7 +122,7 @@ function Search() {
     ).catch((error) => {
       console.log(error)
     })
-    url = 'http://localhost:3000/getBasicCompanyInfo';
+    url = 'http://localhost:3001/getBasicCompanyInfo';
     console.log(compantAndCIK)
     request_object = {
       "company": curCompany,
@@ -243,22 +245,25 @@ function Search() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Accordion 1</Typography>
+          <Typography>COMPANY INFO</Typography>
         </AccordionSummary>
         <AccordionDetails>
+        <Container>
           {
             basicInfo.map((row, idx) => {
               return (
-                <Typography key={idx}>
-                  {row[0] + ' : ' + row[1]}
-                </Typography>
+                <Row key={idx}>
+                  <Col style={{'text-align':'left'}}>{row[0]}</Col>
+                  <Col style={{'text-align':'left'}}>{row[1]}</Col>
+                </Row>
               )
             }) 
           }
+          </Container>
         </AccordionDetails>
       </Accordion>
 
-      <table style={{ margin: "50px", 'text-align': 'left' }}>
+      <table className='content-table' style={{ margin: "50px", 'text-align': 'left' }}>
         <thead>
           <th>FIELD</th>
           <th>VALUE</th>
@@ -269,10 +274,10 @@ function Search() {
               // console.log(row)
               return (
                 <tr key={idx}>
-                  <td>
+                  <td width="40%">
                     {row[0]}
                   </td>
-                  <td>
+                  <td width="20%">
                     {row[1]}
                   </td>
                 </tr>

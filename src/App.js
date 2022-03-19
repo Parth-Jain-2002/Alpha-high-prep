@@ -1,5 +1,6 @@
 import './App.css';
 import Rautes from "./Router/Router";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
