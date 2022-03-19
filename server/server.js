@@ -69,8 +69,45 @@ app.post('/getBasicCompanyInfo', jsonParser, async function (req, res) {
 
         try {
             delete cursor._id;
+            delete cursor["8K"]
+            delete cursor["10KQ"]
             res.end(JSON.stringify({ "status": "success", "data": cursor }));
         } catch (error) {
+            res.end(JSON.stringify({ "status": "error", "data": error }))
+        }
+    } catch (error) {
+        res.end(JSON.stringify({ "status": "error", "data": error }))
+    }
+})
+
+app.post('/getCompanyForms', jsonParser, async function (req, res) {
+    try {
+        let company = req.body.company, year = req.body.year;
+        console.log(company, year);
+        await client.connect();
+        let response = {}
+        let cursor = await client.db("CIK").collection("data").findOne({
+            "Company Name": { $eq: company },
+        })
+
+        try {
+            let form1 = cursor["8K"], form2 = cursor["10KQ"];
+            let data1 = [], data2 = [];
+            for (var i in form1) {
+                form1[i][1] = form1[i][1].split(" ")[0];
+                if (form1[i][1].includes(year)) {
+                    data1.push(form1[i]);
+                }
+            }
+            for (var i in form2) {
+                form2[i][1] = form2[i][1].split(" ")[0];
+                if (form2[i][1].includes(year)) {
+                    data2.push(form2[i]);
+                }
+            }
+            res.end(JSON.stringify({ "status": "success", "data": {"8K": data1, "10KQ": data2} }));
+        } catch (error) {
+            console.log(error)
             res.end(JSON.stringify({ "status": "error", "data": error }))
         }
     } catch (error) {
