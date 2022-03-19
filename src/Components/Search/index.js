@@ -1,3 +1,4 @@
+import { Autocomplete, TextField } from '@mui/material';
 import React, { useEffect,useState } from 'react'
 
 function Search() {
@@ -58,51 +59,40 @@ function Search() {
   return (
     <>
     <h1>Search</h1>
-    <select
-    onChange={(e)=>{
+    <Autocomplete
+      id="combo-box-demo"
+      defaultValue={year[0]}
+      options={year}
+      sx={{ width: 200,display:'inline-block'}}
+      onChange={(e)=>{
         setCurYear(e.target.value);
         setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
-    }}>
-    {
-        year.map((x,id)=>{
-            return(
-                <option value={x} key={id}>
-                    {x}
-                </option>
-            )
-        })
-    }
-    </select>
-    <select
-    onChange={(e)=>{
+    }}
+      renderInput={(params) => <TextField {...params} label="Year" />}
+    />
+    <Autocomplete
+      id="combo-box-demo"
+      options={company}
+      defaultValue={company[0]}
+      sx={{ width: 200,display:'inline-block'}}
+      onChange={(e)=>{
         setCurCompany(e.target.value);
         setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
-    }}>
-    {
-        company.map((x,id)=>{
-            return(
-                <option value={x} key={id}>
-                    {x}
-                </option>
-            )
-        })
-    }
-    </select>
-    <select
-    onChange={(e)=>{
+      }}
+      renderInput={(params) => <TextField {...params} label="Company" />}
+    />
+    <Autocomplete
+      id="combo-box-demo"
+      options={quarter}
+      defaultValue={quarter[0]}
+      sx={{ width: 200,display:'inline-block'}}
+      onChange={(e)=>{
         setCurQuarter(e.target.value);
         setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
-    }}>
-    {
-        quarter.map((x,id)=>{
-            return(
-                <option value={x} key={id}>
-                    {x}
-                </option>
-            )
-        })
-    }
-    </select>
+      }}
+      renderInput={(params) => <TextField {...params} label="Quarter" />}
+    />
+    
     <table style={{margin:"50px",'text-align':'left'}}>
         <thead>
           <th>FIELD</th>
