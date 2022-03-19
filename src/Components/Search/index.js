@@ -4,6 +4,7 @@ function Search() {
   const [year,setYear]=useState([]);
   const [company,setCompany]=useState([]);
   const [quarter,setQuarter]=useState([]);
+  const [specificData,setSpecificData]=useState([]);
 
   function fetchData(){
      fetch(`./data.json`,{
@@ -30,6 +31,15 @@ function Search() {
             com.push(company);
         }
         setCompany(com);
+        let quarData=comData[com[0]];
+        console.log(quarData);
+        let quar=[];
+        for(let quarter in quarData){
+            quar.push(quarter);
+        }
+        setQuarter(quar);
+        console.log(quarData[quar[0]]);
+        setSpecificData(quarData[quar[0]]);
      });
   }
 
@@ -40,7 +50,7 @@ function Search() {
 
   return (
     <>
-    <h1>Hello</h1>
+    <h1>Search</h1>
     <select>
     {
         year.map((x,id)=>{
@@ -63,6 +73,34 @@ function Search() {
         })
     }
     </select>
+    <select>
+    {
+        quarter.map((x,id)=>{
+            return(
+                <option value={x} key={id}>
+                    {x}
+                </option>
+            )
+        })
+    }
+    </select>
+    <table style={{margin:"50px",'text-align':'left'}}>
+        <thead>
+          <th>FIELD</th>
+          <th>VALUE</th>
+        </thead>
+        <tbody>
+          {Object.entries(specificData).map((row) => {
+            console.log(row);
+            return (
+              <tr>
+                <td>{row[0]}</td>
+                <td>{row[1]}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </>
   )
 }
