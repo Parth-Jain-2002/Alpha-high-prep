@@ -44,7 +44,9 @@ To run the backend, go in the directory server. For that, use command `cd server
 
 To start the backend, run command `node server.js` or `nodemon server.js`
 
+![Untitled](https://user-images.githubusercontent.com/72060359/159132277-eefa4a1c-f101-4123-b866-0c79ef26c897.png)
 
+This is a screenshot from the MongoDB database
 
 
 
