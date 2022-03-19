@@ -83,7 +83,6 @@ app.post('/getBasicCompanyInfo', jsonParser, async function (req, res) {
 app.post('/getCompanyForms', jsonParser, async function (req, res) {
     try {
         let company = req.body.company, year = req.body.year;
-        console.log(company, year);
         await client.connect();
         let response = {}
         let cursor = await client.db("CIK").collection("data").findOne({
@@ -107,7 +106,6 @@ app.post('/getCompanyForms', jsonParser, async function (req, res) {
             }
             res.end(JSON.stringify({ "status": "success", "data": {"8K": data1, "10KQ": data2} }));
         } catch (error) {
-            console.log(error)
             res.end(JSON.stringify({ "status": "error", "data": error }))
         }
     } catch (error) {
@@ -137,5 +135,5 @@ app.post('/getAdditionalCompanyInfo', jsonParser, async function (req, res) {
 })
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`App listening on port ${port}`)
 })
