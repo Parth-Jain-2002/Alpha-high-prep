@@ -40,6 +40,10 @@ Moreover, you also get the links to the various forms and info about their filli
 
 ### `About the Backend`
 
+To run the backend, go in the directory server. For that, use command `cd server`
+
+To start the backend, run command `node server.js` or `nodemon server.js`
+
 
 
 
