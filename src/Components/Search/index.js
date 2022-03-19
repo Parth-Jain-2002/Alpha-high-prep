@@ -60,34 +60,38 @@ function Search() {
     <>
     <h1>Search</h1>
     <Autocomplete
+    disablePortal
       id="combo-box-demo"
       defaultValue={year[0]}
       options={year}
       sx={{ width: 200,display:'inline-block'}}
-      onChange={(e)=>{
-        setCurYear(e.target.value);
+      onChange={(e,value)=>{
+        setCurYear(value);
         setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
     }}
       renderInput={(params) => <TextField {...params} label="Year" />}
     />
     <Autocomplete
+    disablePortal
       id="combo-box-demo"
       options={company}
       defaultValue={company[0]}
       sx={{ width: 200,display:'inline-block'}}
-      onChange={(e)=>{
-        setCurCompany(e.target.value);
+      onChange={(e,value)=>{
+        setCurCompany(value);
         setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
       }}
       renderInput={(params) => <TextField {...params} label="Company" />}
     />
     <Autocomplete
+      disablePortal
       id="combo-box-demo"
       options={quarter}
       defaultValue={quarter[0]}
       sx={{ width: 200,display:'inline-block'}}
-      onChange={(e)=>{
-        setCurQuarter(e.target.value);
+      onChange={(e,value)=>{
+        console.log(value);
+        setCurQuarter(value);
         setSpecificData(data[parseInt(curYear)][parseInt(curCompany)][String(curQuarter)]);
       }}
       renderInput={(params) => <TextField {...params} label="Quarter" />}
