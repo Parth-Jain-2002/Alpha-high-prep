@@ -1,12 +1,14 @@
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
+var cors = require('cors')
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json()
 var { MongoClient } = require('mongodb');
 const port = 3000
 
 var app = express();
+app.use(cors())
 const uri = "mongodb+srv://OptimalNight:techmeet10@cluster0.fh1pc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const client = new MongoClient(uri);
 
